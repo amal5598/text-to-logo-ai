@@ -2,7 +2,6 @@
 
 > End-to-end Artificial Intelligence system for transforming natural-language logo descriptions into structured design information, optimized prompts, and generated logo concepts.
 
----
 
 ## 📌 Overview
 
@@ -38,7 +37,7 @@ Natural Language Description
             ↓
    Multiple Logo Candidates
 
----
+
 
 ### 🎯 Project Objective
 
