@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+nest-asyncio
+pyngrok
+transformers>=4.35.0
+torch
+seqeval
+bitsandbytes
+accelerate
+peft
+diffusers
+safetensors
+xformers
+pandas
+numpy
+pillow
+pydantic
