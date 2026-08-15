@@ -38,6 +38,8 @@ Natural Language Description
             ↓
    Multiple Logo Candidates
 
+---
+
 ### 🎯 Project Objective
 
 The main objective of TEXT2LOGO AI is to understand a textual description of a logo and transform its semantic information into a visual representation.
