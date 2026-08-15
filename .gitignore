@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Jupyter / Colab
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Google Colab / Drive
+/content/
+/drive/
+/mnt/
+
+# Machine Learning models
+models/
+*.bin
+*.safetensors
+*.ckpt
+*.pth
+*.pt
+
+# Generated files
+output/
+outputs/
+generated/
+lora_models/
+
+# Data
+data/
+datasets/
+*.csv
+*.jsonl
+
+# Secrets
+.env
+.env.*
+*.key
+secrets.json
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
