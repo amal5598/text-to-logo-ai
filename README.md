@@ -1,114 +1,215 @@
-# 🧠 TEXT2LOGO AI
+# 🎨 Text-to-Logo AI
 
-> End-to-end Artificial Intelligence system for transforming natural-language logo descriptions into structured design information, optimized prompts, and generated logo concepts.
+> An AI-powered system that transforms a natural-language logo description into multiple logo concepts using NLP, Relation Extraction, Prompt Engineering, Stable Diffusion and LoRA fine-tuning.
 
+---
 
 ## 📌 Overview
 
-TEXT2LOGO AI is an intelligent generative AI system designed to transform a natural-language description of a logo into one or more generated logo concepts.
+**Text-to-Logo AI** is an intelligent logo generation system designed to transform a textual description into visual logo concepts.
+
+The system combines Natural Language Processing (NLP), semantic relation extraction, automatic prompt construction and generative AI.
+
+Given a description such as:
+
+> "Un logo moderne pour une marque de café avec une tasse noire, un style minimaliste et une typographie élégante."
+
+the system automatically:
+
+1. Analyzes the description.
+2. Extracts relevant entities.
+3. Identifies semantic relationships between entities.
+4. Builds a structured JSON representation.
+5. Generates an optimized prompt.
+6. Uses Stable Diffusion with LoRA fine-tuning.
+7. Generates multiple logo variations.
+8. Returns four generated logos and a 2×2 result grid.
+
+---
+
+# 🚀 Main Features
+
+- 📝 Natural-language logo description
+- 🔎 Named Entity Recognition (NER)
+- 🧠 CamemBERT-based NLP models
+- 🔗 Semantic relation extraction
+- 🧩 Automatic JSON block construction
+- ✍️ Automatic prompt generation
+- 🎯 Hybrid entity + relation processing
+- 🎨 Stable Diffusion image generation
+- 🔧 LoRA fine-tuning
+- 🎲 Multi-seed generation
+- 🖼️ Generation of four logo variations
+- 🔲 Automatic 2×2 logo grid
+- 🚀 REST API with FastAPI
+- 🌐 Public API exposure using Ngrok
+- ☁️ Google Colab GPU environment
+
+---
+
+# 🏗️ System Architecture
+
+The complete system follows the pipeline:
+
+```text
+User
+  │
+  ▼
+Textual Logo Description
+  │
+  ▼
+FastAPI REST API
+  │
+  ▼
+CamemBERT NER
+  │
+  ▼
+Entity Extraction
+  │
+  ├── Objects
+  ├── Colors
+  ├── Styles
+  ├── Typography
+  ├── Text
+  └── Brand
+  │
+  ▼
+Relation Extraction
+  │
+  ├── Color relations
+  ├── Style relations
+  ├── Typography relations
+  └── Layout relations
+  │
+  ▼
+Hybrid Block Construction
+  │
+  ▼
+Automatic Prompt Builder
+  │
+  ├── Rich Prompt
+  └── Negative Prompt
+  │
+  ▼
+Stable Diffusion v1.5
+       +
+     LoRA
+  │
+  ▼
+Multi-Seed Generation
+  │
+  ├── Logo 1
+  ├── Logo 2
+  ├── Logo 3
+  └── Logo 4
+  │
+  ▼
+2×2 Result Grid
+  │
+  ▼
+Final Output
+```
+
+---
+
+# 🧠 AI Pipeline
+
+## 1. Named Entity Recognition
+
+The first stage analyzes the textual description using a fine-tuned **CamemBERT NER model**.
+
+The model identifies relevant logo-related entities such as:
+
+- Objects
+- Colors
+- Styles
+- Typography
+- Textual content
+- Brand names
+- Categories
+- Layout information
+
+Example:
+
+```text
+Input:
+"Un logo moderne avec une tasse noire et une typographie élégante."
+
+Detected entities:
+
+Objets:
+- tasse
+
+Couleurs:
+- noire
+
+Styles:
+- moderne
+
+Typographies:
+- élégante
+```
+
+The detected entities are represented using their text, label, start position and end position.
+
+---
+
+# 🔗 2. Relation Extraction
+
+After entity detection, the system identifies relationships between entities.
+
+A second **CamemBERT-based classification model** is used to predict semantic relationships.
+
+Supported relationships include:
+
+```text
+A_COMME_COULEUR
+A_COMME_STYLE
+A_COMME_TYPOGRAPHIE
+A_COMME_DISPOSITION
+```
+
+Example:
+
+```text
+Entity 1: tasse
+Entity 2: noire
+
+Relation:
+A_COMME_COULEUR
+```
+
+Another example:
+
+```text
+Entity 1: texte
+Entity 2: typographie élégante
+
+Relation:
+A_COMME_TYPOGRAPHIE
+```
+
+This allows the system to understand not only **what elements are present**, but also **how they are related**.
+
+---
+
+# 🧩 3. Hybrid Information Fusion
 
 The system combines:
 
-- Natural Language Processing
-- Named Entity Recognition
-- Semantic Relation Extraction
-- Prompt Engineering
-- Large Language Models
-- LoRA Fine-Tuning
-- Stable Diffusion
-- FastAPI
+- NER predictions
+- Relation extraction predictions
 
-The complete pipeline is:
+to create a structured representation of the logo description.
 
-```text
-Natural Language Description
-            ↓
-       Entity Extraction
-            ↓
-    Relation Extraction
-            ↓
-   Structured JSON Block
-            ↓
-   Automatic Prompt Building
-            ↓
-     Prompt Validation
-            ↓
- Stable Diffusion + LoRA
-            ↓
-   Multiple Logo Candidates
-
-
-
-### 🎯 Project Objective
-
-The main objective of TEXT2LOGO AI is to understand a textual description of a logo and transform its semantic information into a visual representation.
-
-The system is designed to preserve:
-
-Objects
-Colors
-Styles
-Typography
-Textual content
-Brand names
-Spatial relationships
-Layout
-Composition
+The resulting structure is organized into a JSON block.
 
 Example:
 
-Créer un logo moderne pour une marque de café appelée CaféNova,
-avec une tasse noire, une typographie élégante et le texte placé
-sous la tasse.
-
-The system extracts the relevant information, constructs a structured representation, generates a prompt, validates it, and finally generates several logo candidates.
-
-✨ Main Features
-🧠 Natural Language Understanding
-
-The system analyzes the input description using a fine-tuned CamemBERT model.
-
-It identifies entities related to logo design.
-
-Supported entity categories include:
-
-Objets
-Couleurs
-Styles
-Typographies
-Contenu_textuel
-Marque
-disposition
-Categories
-🔗 Semantic Relation Extraction
-
-The system identifies semantic relationships between extracted entities.
-
-Supported relations:
-
-A_COMME_COULEUR
-A_COMME_DISPOSITION
-A_COMME_STYLE
-A_COMME_TYPOGRAPHIE
-
-Example:
-
-tasse → A_COMME_COULEUR → noire
-
-
-tasse → A_COMME_STYLE → moderne
-
-
-CaféNova → A_COMME_TYPOGRAPHIE → élégante
-🧩 Structured Semantic Representation
-
-The extracted information is transformed into a structured JSON block.
-
-Example:
-
+```json
 {
-  "Marque": ["CaféNova"],
-  "Contenu_textuel": [],
+  "Marque": [],
+  "Contenu_textuel": ["CAFÉ"],
   "Objets": ["tasse"],
   "Couleurs": [
     {
@@ -118,872 +219,445 @@ Example:
   ],
   "Styles": [
     {
-      "cible": "tasse",
+      "cible": "logo",
       "style": "moderne"
     }
   ],
   "Typographies": [
     {
-      "cible": "CaféNova",
+      "cible": "CAFÉ",
       "typo": "élégante"
     }
   ],
   "Dispositions": [],
   "Dispositions_props": [],
-  "Categories": []
+  "Categories": ["café"]
 }
-✍️ Automatic Prompt Construction
+```
 
-The module:
+This structured representation reduces ambiguity before prompt generation.
 
-constructionpromptautomatiquement.py
+---
 
-is responsible for transforming the structured information into a natural-language prompt.
+# ✍️ 4. Automatic Prompt Construction
 
-The system uses a hybrid strategy combining:
+The structured information is transformed into a natural-language prompt.
 
-Extracted entities
-Semantic relations
-Rule-based processing
-Text normalization
-Deduplication
-Garbage filtering
-French normalization
-Semantic retargeting
+The prompt builder automatically combines:
 
-Example generated prompt:
+- Brand information
+- Textual content
+- Objects
+- Colors
+- Styles
+- Typography
+- Layout
+- Categories
 
-Logo vectoriel pour CaféNova mettant en scène une tasse
-dans un style moderne avec une palette noire et une typographie
-élégante et le texte présent : CaféNova. Fond neutre, lisible, net.
-🤖 Prompt Validation
+Example:
 
-A Mistral-7B-Instruct-v0.3 model combined with LoRA fine-tuning was used for prompt validation.
+```text
+Logo vectoriel pour CAFÉ (café), mettant en scène tasse,
+dans un style moderne, avec une palette tasse: noire,
+et une typographie CAFÉ: élégante.
+Fond neutre, lisible, net.
+```
 
-The validator receives:
+The system also generates a negative prompt to reduce unwanted visual characteristics.
 
-Description originale
-        +
-Structured JSON Block
-        +
-Generated Prompt
+Example:
 
-The model is instructed to:
+```text
+Éviter: photoréalisme, 3D, textures lourdes,
+dégradés marqués, ombres dures, éléments non listés,
+surcharge, pixelisation, bruit.
+```
 
-Never invent new elements
-Preserve existing information
-Restore missing information when necessary
-Preserve the intended composition
-Avoid unnecessary modifications
-Return one final sentence
-🎨 Logo Generation
+---
 
-The image generation module uses:
+# 🎨 5. Image Generation
 
-Stable Diffusion 1.5
-+
-LoRA Fine-Tuning
+The final prompt is sent to:
 
-Configuration:
+**Stable Diffusion v1.5**
 
-Image Size       : 512 × 512
-Inference Steps  : 50
-Guidance Scale   : 8.0
-Seeds            : 7, 21, 42, 87
+combined with a trained:
 
-Four different seeds are used to generate four visual alternatives.
+**LoRA adapter**
 
-The system also creates a 2×2 grid containing the four generated logos.
+The system uses multiple random seeds to generate different visual interpretations of the same description.
 
-🏗️ System Architecture
-                         TEXT2LOGO AI
-                              │
-                              ▼
-                  ┌──────────────────────┐
-                  │ Natural Language      │
-                  │ Logo Description      │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │     CamemBERT NER    │
-                  │  Entity Recognition  │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │ Extracted Entities    │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │ CamemBERT Relation   │
-                  │ Classification       │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │ Semantic Relations    │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │ Hybrid Semantic Block │
-                  │ JSON Representation   │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │ Automatic Prompt      │
-                  │ Construction           │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │ Mistral-7B + LoRA     │
-                  │ Prompt Validation     │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │ Final Generation      │
-                  │ Prompt                │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │ Stable Diffusion 1.5 │
-                  │ + LoRA                │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │ 4 Logo Candidates     │
-                  │ + 2×2 Grid            │
-                  └──────────────────────┘
-🔄 Complete AI Pipeline
-Input Description
-       ↓
-NER CamemBERT
-       ↓
-Entity Extraction
-       ↓
-Relation Extraction
-       ↓
-Hybrid Semantic Representation
-       ↓
-Automatic Prompt Construction
-       ↓
-Mistral + LoRA Prompt Validation
-       ↓
-Stable Diffusion + LoRA
-       ↓
-4 Generated Logos
-       ↓
-2×2 Visualization
-🛠️ Technologies
-Programming Language
-Python
-NLP
-Hugging Face Transformers
-CamemBERT
-Token Classification
-Sequence Classification
-Large Language Models
-Mistral-7B-Instruct-v0.3
-LoRA
-PEFT
-BitsAndBytes
-4-bit Quantization
-Generative AI
-Stable Diffusion 1.5
-Diffusers
-LoRA
-Prompt Engineering
-Deep Learning
-PyTorch
-API
-FastAPI
-Uvicorn
-Pydantic
-CORS
-Data Processing
-Pandas
-NumPy
-JSON
-Regex
-Development Environment
-Google Colab
-Google Drive
-Ngrok
-📂 Project Structure
+Current seeds:
+
+```text
+7
+21
+42
+87
+```
+
+This produces four different logo candidates.
+
+---
+
+# 🔲 6. Multi-Seed Generation
+
+For each request, four images are generated.
+
+```text
+             Logo Generation
+                    │
+       ┌────────────┼────────────┐
+       │            │            │
+     Seed 7       Seed 21      Seed 42      Seed 87
+       │            │            │             │
+       ▼            ▼            ▼             ▼
+    Logo 1        Logo 2       Logo 3        Logo 4
+       └────────────┴────────────┴─────────────┘
+                           │
+                           ▼
+                       2×2 Grid
+```
+
+This gives the user several alternatives instead of a single result.
+
+---
+
+# ⚙️ Technologies Used
+
+## Programming
+
+- Python
+
+## NLP
+
+- Hugging Face Transformers
+- CamemBERT
+- Token Classification
+- Sequence Classification
+
+## Generative AI
+
+- Stable Diffusion
+- LoRA
+- Diffusers
+- PyTorch
+
+## API
+
+- FastAPI
+- Uvicorn
+- Pydantic
+
+## Image Processing
+
+- Pillow
+- Base64 encoding
+
+## Deployment / Testing
+
+- Google Colab
+- NVIDIA GPU
+- Ngrok
+
+## Data Processing
+
+- Pandas
+- NumPy
+- JSON
+
+---
+
+# 📂 Project Structure
+
+```text
 text-to-logo-ai/
 │
 ├── api/
+│   │
 │   ├── app.py
+│   │
+│   ├── relation_extractor.py
+│   │
 │   ├── constructionpromptautomatiquement.py
-│   ├── model_validator.py
-│   └── relation_extractor.py
+│   │
+│   └── model_validator.py
 │
 ├── README.md
 │
-└── models/
-    ├── NER/
-    ├── relation_model/
-    ├── mistral_lora/
-    └── stable_diffusion_lora/
-📄 API Modules
-app.py
+└── requirements.txt
+```
+
+---
+
+# 📄 Main Components
+
+## `api/app.py`
 
 Main FastAPI application.
 
 Responsibilities:
 
-API configuration
-Model loading
-Request validation
-Complete pipeline execution
-Logo generation
-Image encoding
-Image saving
-API endpoints
-relation_extractor.py
+- API configuration
+- CORS configuration
+- Loading Stable Diffusion
+- Loading LoRA
+- Receiving textual descriptions
+- Calling the NLP pipeline
+- Building prompts
+- Generating logos
+- Returning results
+- Saving generated images
 
-Responsible for:
+Main pipeline endpoint:
 
-Entity pair extraction
-Relation input construction
-CamemBERT relation prediction
-Confidence calculation
-Relation output formatting
-constructionpromptautomatiquement.py
+```text
+POST /full_pipeline2/
+```
 
-Responsible for:
+---
 
-Entity normalization
-Relation normalization
-Structured JSON construction
-Hybrid merging
-Cleaning
-Deduplication
-French normalization
-Prompt construction
-model_validator.py
+## `api/relation_extractor.py`
 
-Responsible for:
+Responsible for semantic relation extraction.
 
-Loading Mistral
-Loading LoRA adapters
-Prompt validation
-Prompt correction
-Final prompt generation
-🤖 Model Architecture
-Component	Model	Task
-NER	CamemBERT	Entity Recognition
-Relation Extraction	CamemBERT	Relation Classification
-Prompt Validation	Mistral-7B-Instruct-v0.3 + LoRA	Prompt Correction
-Image Generation	Stable Diffusion 1.5 + LoRA	Logo Generation
-🧠 NER Module
+Main responsibilities:
 
-The NER model is fine-tuned specifically for the TEXT2LOGO domain.
+- Loading the relation extraction model
+- Preparing entity pairs
+- Building CamemBERT inputs
+- Predicting relations
+- Computing confidence scores
+- Returning structured relation results
 
-The model identifies:
+---
 
-Objets
-Couleurs
-Styles
-Typographies
-Contenu_textuel
-Marque
-disposition
-Categories
+## `api/constructionpromptautomatiquement.py`
 
-Example:
+Responsible for automatic prompt construction.
 
-Input:
-Un logo moderne avec une tasse noire et le texte CaféNova
-en typographie élégante.
+Main responsibilities:
 
+- Entity normalization
+- Relation normalization
+- JSON block construction
+- Hybrid fusion
+- Cleaning
+- French normalization
+- Prompt generation
+- Negative prompt generation
 
-Entities:
+---
 
+## `api/model_validator.py`
 
-tasse       → Objets
-moderne     → Styles
-noire       → Couleurs
-CaféNova    → Contenu_textuel
-élégante    → Typographies
-🔗 Relation Extraction
+Contains the optional prompt validation module based on:
 
-The relation classifier identifies semantic dependencies between entities.
-
-Example:
-
-tasse
-   │
-   ├── A_COMME_COULEUR ──> noire
-   │
-   └── A_COMME_STYLE ──> moderne
-
-
-CaféNova
-   │
-   └── A_COMME_TYPOGRAPHIE ──> élégante
-
-This information is used to build a structured representation.
-
-🧩 Hybrid Strategy
-
-The prompt builder supports three modes:
-
-entities
-relations
-hybrid
-Entities
-
-Uses only extracted entities.
-
-Relations
-
-Uses only semantic relations.
-
-Hybrid
-
-Combines both.
-
-The final system uses the hybrid mode:
-
-Entities
-    +
-Relations
-    ↓
-Hybrid Semantic Block
-    ↓
-Prompt
-
-The hybrid approach provides a richer representation of the original description.
-
-🧹 Data Cleaning
-
-The system applies several cleaning operations:
-
-Text normalization
-Label normalization
-Relation normalization
-Duplicate removal
-Invalid token removal
-Empty value filtering
-French normalization
-Entity retargeting
-
-Invalid tokens such as:
-
-nan
-none
-null
--
-—
-?
-
-are filtered before prompt construction.
-
-✍️ Prompt Generation
-
-The prompt generator creates a rich French prompt.
-
-The generated prompt can contain:
-
-Brand
-Category
-Objects
-Style
-Colors
-Typography
-Composition
-Text
-Background
-
-Example:
-
-Logo vectoriel pour CaféNova mettant en scène une tasse
-dans un style moderne avec une palette noire et une typographie
-élégante. Fond neutre, lisible, net.
-🤖 Mistral + LoRA
-
-The prompt validation model uses:
-
-Base Model:
-mistralai/Mistral-7B-Instruct-v0.3
-
-with:
-
+```text
+Mistral-7B-Instruct
++
 LoRA
-PEFT
-4-bit Quantization
-BitsAndBytes
+```
 
-The use of quantization reduces memory requirements and makes the model more suitable for GPU environments such as Google Colab.
+This module can validate and correct the generated prompt while respecting the original description.
 
-🎨 Stable Diffusion + LoRA
+The validation stage can be enabled when the required model is available.
 
-The image generation module uses:
+---
 
-runwayml/stable-diffusion-v1-5
+# 🔄 Complete Processing Pipeline
 
-with a LoRA adapter trained for the logo generation domain.
+```text
+                 ┌──────────────────────┐
+                 │       User           │
+                 └──────────┬───────────┘
+                            │
+                            ▼
+                 ┌──────────────────────┐
+                 │ Textual Description  │
+                 └──────────┬───────────┘
+                            │
+                            ▼
+                 ┌──────────────────────┐
+                 │       FastAPI        │
+                 └──────────┬───────────┘
+                            │
+                            ▼
+                 ┌──────────────────────┐
+                 │    CamemBERT NER     │
+                 └──────────┬───────────┘
+                            │
+                            ▼
+                 ┌──────────────────────┐
+                 │ Extracted Entities   │
+                 └──────────┬───────────┘
+                            │
+                            ▼
+                 ┌──────────────────────┐
+                 │ Relation Extraction  │
+                 └──────────┬───────────┘
+                            │
+                            ▼
+                 ┌──────────────────────┐
+                 │ Hybrid JSON Block    │
+                 └──────────┬───────────┘
+                            │
+                            ▼
+                 ┌──────────────────────┐
+                 │ Prompt Construction  │
+                 └──────────┬───────────┘
+                            │
+                            ▼
+                 ┌──────────────────────┐
+                 │  Stable Diffusion    │
+                 │       + LoRA         │
+                 └──────────┬───────────┘
+                            │
+                            ▼
+                 ┌──────────────────────┐
+                 │ 4 Generated Logos    │
+                 └──────────┬───────────┘
+                            │
+                            ▼
+                 ┌──────────────────────┐
+                 │      2×2 Grid        │
+                 └──────────────────────┘
+```
 
-Generation parameters:
+---
 
-Steps       = 50
-Guidance    = 8.0
-Resolution  = 512 × 512
+# 🌐 API Endpoints
 
+The application exposes several REST endpoints.
 
-Seeds:
-7
-21
-42
-87
-🚀 FastAPI
+## Root
 
-The entire pipeline is exposed through a REST API.
-
-The API allows the different modules to be tested independently or executed as a complete pipeline.
-
-🔌 API Endpoints
+```http
 GET /
+```
 
-Returns the API status.
+Returns API information.
 
-{
-  "message": "Bienvenue sur l'API TEXT2LOGO"
-}
+---
+
+## Named Entity Recognition
+
+```http
 POST /predict_entities/
+```
 
-Extracts entities from a text.
+Example request:
 
-Request
+```json
 {
-  "text": "Logo moderne avec une tasse noire et CaféNova."
+  "text": "Un logo moderne avec une tasse noire."
 }
-Response
+```
+
+Example response:
+
+```json
 {
   "entities": [
     {
-      "text": "tasse",
-      "label": "Objets"
-    },
-    {
-      "text": "noire",
-      "label": "Couleurs"
+      "text": "logo",
+      "label": "Objets",
+      "start": 6,
+      "end": 10
     }
   ]
 }
+```
+
+---
+
+## Relation Extraction
+
+```http
 POST /relation
+```
 
-Predicts semantic relations.
+Receives the description and detected entities and returns predicted relations.
 
+---
+
+## Prompt Construction
+
+```http
 POST /build_prompts/
+```
 
-Builds the structured JSON representation and generates the prompt.
+Builds:
 
+- JSON block
+- Rich prompt
+- Negative prompt
+
+---
+
+## Prompt Validation
+
+```http
 POST /validateprompt
+```
 
-Validates a generated prompt using Mistral + LoRA.
+Uses the optional Mistral + LoRA validation module.
 
+---
+
+## Logo Generation
+
+```http
 POST /generate
+```
 
-Generates multiple logo candidates.
+Generates multiple logo variations from a prompt.
 
-POST /full_pipeline/
+---
 
-Executes the complete system.
+## Complete Pipeline
 
-Input
+```http
+POST /full_pipeline2/
+```
+
+This endpoint executes the complete workflow:
+
+```text
+Text
  ↓
 NER
  ↓
-Relations
+Relation Extraction
  ↓
-Structured Block
+JSON Block
  ↓
-Prompt Construction
- ↓
-Prompt Validation
- ↓
-Stable Diffusion
- ↓
-4 Logo Candidates
-GET /grid.png
-
-Returns the generated 2×2 grid.
-
-GET /logo/{seed}
-
-Returns a specific generated logo.
-
-Example:
-
-/logo/42
-📊 Evaluation
-
-The evaluation was conducted at multiple levels:
-
-Entity Recognition
-Semantic Relation Extraction
 Prompt Generation
-Image Generation
-Human Evaluation
-📈 Entity Recognition Evaluation
-
-Two models were evaluated:
-
-CamemBERT
-Multilingual BERT
-
-The models were trained for 10 epochs.
-
-Training Loss, Validation Loss, Precision, Recall and F1-score were monitored.
-
-Results
-Model	Epoch	Train Loss	Validation Loss	Precision	Recall	F1-score
-CamemBERT	1	0.3619	0.3613	0.8900	0.8920	0.8706
-CamemBERT	5	0.3623	0.3541	0.8520	0.8536	—
-Multilingual BERT	1	0.3726	0.3681	0.8927	0.8681	0.8724
-Multilingual BERT	5	0.3588	0.3618	0.8941	0.8693	0.8810
-
-Both models demonstrate strong performance for entity recognition in the TEXT2LOGO domain.
-
-🔗 Relation Extraction Evaluation
-
-The CamemBERT relation model was evaluated on four semantic relations.
-
-Relation	Precision	Recall	F1-score	Support
-A_COMME_COULEUR	1.00	1.00	1.00	673
-A_COMME_DISPOSITION	1.00	1.00	1.00	357
-A_COMME_STYLE	1.00	1.00	1.00	842
-A_COMME_TYPOGRAPHIE	0.99	0.98	0.99	130
-Macro Average	1.00	1.00	0.996	2002
-
-The relation model achieves a macro F1-score of approximately:
-
-0.996
-
-indicating very strong classification performance on the evaluated relation classes.
-
-📝 Prompt Generation Evaluation
-
-Two models were compared:
-
-Gemma-2B-it
-Mistral
-
-The evaluation used:
-
-BLEU
-ROUGE-L
-SBERT Similarity
-BERTScore Precision
-BERTScore Recall
-BERTScore F1
-Input-Human Similarity
-Results
-Metric	Gemma-2B-it	Mistral
-BLEU	0.582	0.742
-ROUGE-L	0.865	0.856
-SBERT Similarity	0.771	0.880
-BERTScore Precision	0.585	0.771
-BERTScore Recall	0.747	0.844
-BERTScore F1	0.656	0.805
-Input-Human Similarity	0.615	0.615
-📌 Prompt Evaluation Analysis
-Lexical and Structural Evaluation
-
-Mistral achieves a higher BLEU score:
-
-Mistral       = 0.742
-Gemma-2B-it   = 0.582
-
-This indicates that Mistral reproduces the lexical structure of human-corrected prompts more effectively.
-
-The ROUGE-L scores are relatively close:
-
-Gemma-2B-it   = 0.865
-Mistral       = 0.856
-
-This shows that both models provide good content coverage.
-
-🧠 Semantic and Coherence Evaluation
-
-Mistral performs better on the semantic metrics.
-
-SBERT Similarity:
-
-Gemma-2B-it = 0.771
-Mistral     = 0.880
-
-BERTScore F1:
-
-Gemma-2B-it = 0.656
-Mistral     = 0.805
-
-Mistral therefore generates prompts that are semantically closer to the human-corrected references.
-
-👤 Human Reference Similarity
-
-The similarity between the original prompt and the human-corrected prompt is:
-
-0.615
-
-for both models.
-
-The SBERT similarity between generated prompts and human references is:
-
-Gemma-2B-it = 0.771
-Mistral     = 0.880
-
-This confirms the better semantic fidelity of Mistral.
-
-🏆 Prompt Model Conclusion
-
-Based on the evaluation results, Mistral-7B-Instruct-v0.3 provides the strongest overall performance.
-
-Mistral generates prompts that are:
-
-More coherent
-More semantically faithful
-More precise
-Better structured
-Closer to human corrections
-
-Therefore, Mistral + LoRA was selected for prompt validation.
-
-🖼️ Image Generation Evaluation
-
-The generated images were evaluated using automatic and human-based metrics.
-
-The automatic evaluation considers:
-
-CLIP
-SSIM
-LPIPS
-Text-Image Similarity
-
-A global score was calculated using:
-
-Score_global = (Score_auto + Score_humain) / 2
-
-Where:
-
-Score_auto
-=
-Normalized automatic score
-
-
-Score_humain
-=
-Average human evaluation score
-🎨 Stable Diffusion Evaluation
-
-Two models were compared:
-
-Stable Diffusion 1.5 pre-trained
-Stable Diffusion 1.5 + LoRA
-Results
-Model	CLIP	SSIM	LPIPS	Text-Image	Human Score
-Stable Diffusion 1.5 + LoRA	0.677	0.404	0.668	0.292	3.472
-Stable Diffusion 1.5	0.634	0.332	0.752	0.296	1.224
-
-The LoRA fine-tuned model obtains:
-
-CLIP = 0.677
-
-compared with:
-
-CLIP = 0.634
-
-for the pre-trained Stable Diffusion model.
-
-The human evaluation is also significantly higher:
-
-LoRA = 3.472
-SD 1.5 = 1.224
-
-These results indicate that domain-specific LoRA fine-tuning improves the generation of logo concepts.
-
-🏆 Overall Evaluation
-
-The evaluation confirms the effectiveness of the different components of the TEXT2LOGO pipeline.
-
-NER
-
-CamemBERT demonstrates strong entity recognition performance.
-
-Relations
-
-CamemBERT achieves a macro F1-score of approximately 0.996.
-
-Prompt Generation
-
-Mistral performs better than Gemma-2B-it on the main semantic metrics.
-
-Image Generation
-
-Stable Diffusion + LoRA achieves better results than the pre-trained Stable Diffusion 1.5 model, particularly according to human evaluation.
-
-🔬 End-to-End Example
-Input
-Créer un logo moderne pour une marque de café appelée CaféNova,
-avec une tasse noire, une typographie élégante et le texte placé
-sous la tasse.
-Step 1 — Entity Extraction
-CaféNova    → Marque
-tasse       → Objets
-noire       → Couleurs
-moderne     → Styles
-élégante    → Typographies
-Step 2 — Relation Extraction
-tasse → A_COMME_COULEUR → noire
-
-
-tasse → A_COMME_STYLE → moderne
-
-
-CaféNova → A_COMME_TYPOGRAPHIE → élégante
-Step 3 — Structured Block
+ ↓
+Stable Diffusion + LoRA
+ ↓
+4 Logos
+ ↓
+2×2 Grid
+```
+
+---
+
+# 📥 Example Input
+
+```json
 {
-  "Marque": ["CaféNova"],
-  "Contenu_textuel": [],
-  "Objets": ["tasse"],
-  "Couleurs": [
-    {
-      "cible": "tasse",
-      "couleur": "noire"
-    }
-  ],
-  "Styles": [
-    {
-      "cible": "tasse",
-      "style": "moderne"
-    }
-  ],
-  "Typographies": [
-    {
-      "cible": "CaféNova",
-      "typo": "élégante"
-    }
-  ],
-  "Dispositions": [],
-  "Dispositions_props": [],
-  "Categories": []
+  "text": "Un logo moderne pour une marque de café avec une tasse noire, un style minimaliste et une typographie élégante."
 }
-Step 4 — Prompt Construction
-Logo vectoriel pour CaféNova mettant en scène une tasse
-dans un style moderne avec une palette noire et une typographie
-élégante. Fond neutre, lisible, net.
-Step 5 — Prompt Validation
+```
 
-Mistral + LoRA validates the generated prompt against the original description.
+---
 
-Step 6 — Image Generation
+# 📤 Example Output
 
-Stable Diffusion + LoRA generates:
+The API returns:
 
-Seed 7
-Seed 21
-Seed 42
-Seed 87
-
-The four results are returned individually and as a 2×2 grid.
-
-☁️ Development Environment
-
-The project was developed and tested using Google Colab with GPU acceleration.
-
-Google Colab was used because the pipeline requires significant computational resources for:
-
-Mistral-7B
-Stable Diffusion
-LoRA inference
-CamemBERT
-GPU-based image generation
-
-Models were stored and loaded from Google Drive during experimentation.
-
-📦 Installation
-
-Clone the repository:
-
-git clone https://github.com/amal5598/text-to-logo-ai.git
-cd text-to-logo-ai
-
-Install the required packages:
-
-pip install -r requirements.txt
-
-Main dependencies:
-
-fastapi
-uvicorn
-nest-asyncio
-pyngrok
-transformers
-torch
-seqeval
-bitsandbytes
-accelerate
-peft
-diffusers
-safetensors
-xformers
-pandas
-numpy
-Pillow
-▶️ Running the API
-
-Start the FastAPI server:
-
-uvicorn app:app --host 0.0.0.0 --port 8000
-
-For Google Colab, Ngrok can be used to expose the API:
-
-from pyngrok import ngrok
-
-
-public_url = ngrok.connect(8000)
-
-
-print("Public URL:", public_url)
-🔐 Security Note
-
-API tokens and authentication credentials must never be committed to the repository.
-
-Use environment variables or secret management systems for:
-
-NGROK_AUTH_TOKEN
-API_KEYS
-MODEL_KEYS
-
-Example:
-
-import os
-
-
-NGROK_AUTH_TOKEN = os.getenv("NGROK_AUTH_TOKEN")
-📊 End-to-End Output
-
-For a single description, the system can return:
-
-Entities
-Relations
-Structured JSON
-Generated Prompt
-Validated Prompt
-4 Generated Logos
-2×2 Logo Grid
-
-Example response structure:
-
+```json
 {
   "entities": [],
   "relations": [],
@@ -993,124 +667,378 @@ Example response structure:
   "logos": [],
   "grid_logo": "..."
 }
-🚀 Main Contributions
-1. Domain-Specific NER
+```
 
-Development of an entity recognition model adapted to logo descriptions.
+The actual values depend on the input description and model predictions.
 
-2. Semantic Relation Extraction
+---
 
-Identification of semantic relationships between logo components.
+# 🧪 Example Use Case
 
-3. Hybrid Semantic Representation
+### Input
 
-Combination of entity and relation information.
+```text
+Créer un logo moderne pour une marque de café.
+Le logo contient une tasse noire avec une typographie élégante.
+```
 
-4. Automatic Prompt Engineering
+### Processing
 
-Transformation of structured information into generation-ready prompts.
+```text
+Text
+ ↓
+NER
+ ↓
+Objets = tasse
+Couleurs = noire
+Style = moderne
+Typographie = élégante
+ ↓
+Relation Extraction
+ ↓
+Structured JSON
+ ↓
+Prompt Builder
+ ↓
+Stable Diffusion + LoRA
+```
 
-5. LLM-Based Prompt Validation
+### Output
 
-Use of Mistral + LoRA to improve prompt fidelity.
+```text
+Logo 1
+Logo 2
+Logo 3
+Logo 4
 
-6. Domain-Specific Image Generation
+        ┌─────────┬─────────┐
+        │ Logo 1  │ Logo 2  │
+        ├─────────┼─────────┤
+        │ Logo 3  │ Logo 4  │
+        └─────────┴─────────┘
+```
 
-Fine-tuning Stable Diffusion 1.5 using LoRA.
+---
 
-7. End-to-End AI Pipeline
+# ☁️ Execution Environment
 
-Integration of NLP, LLM and Generative AI.
+The project was developed and tested using **Google Colab** with GPU acceleration.
 
-8. FastAPI Integration
+The models used in the project are computationally intensive, especially the Stable Diffusion and large language model components.
 
-Deployment of the complete pipeline as a REST API.
+The API can be exposed publicly during experimentation using Ngrok.
 
-🔮 Future Improvements
+Architecture:
 
-Possible future improvements include:
+```text
+Google Colab
+     │
+     ├── Python
+     ├── PyTorch
+     ├── Transformers
+     ├── Stable Diffusion
+     └── FastAPI
+            │
+            ▼
+          Ngrok
+            │
+            ▼
+     Public API Endpoint
+```
 
-Complete web interface
-Authentication
-User accounts
-Database integration
-Cloud GPU deployment
-Logo download
-Automatic logo ranking
-Human feedback integration
-Better typography rendering
-Better text rendering inside logos
-More logo categories
-Multilingual support
-Larger language models
-Improved relation extraction
-Improved LoRA datasets
-Faster inference
-Continuous evaluation
-Automatic quality scoring
-📚 Final Architecture
-                         TEXT2LOGO AI
-                              │
-                              ▼
-                  ┌──────────────────────┐
-                  │ Natural Language      │
-                  │ Description           │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │ CamemBERT NER         │
-                  │ Entity Extraction     │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │ Semantic Relations    │
-                  │ CamemBERT             │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │ Hybrid JSON Block     │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │ Prompt Construction   │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │ Mistral + LoRA        │
-                  │ Prompt Validation     │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │ Final Prompt          │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │ Stable Diffusion 1.5 │
-                  │ + LoRA                │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │ Multiple Logos        │
-                  │ + 2×2 Grid            │
-                  └──────────────────────┘
-👩‍💻 Author
+---
 
-Amal Boubakri
+# 📦 Installation
 
-Data Science & Artificial Intelligence
+Clone the repository:
+
+```bash
+git clone https://github.com/amal5598/text-to-logo-ai.git
+```
+
+Enter the project:
+
+```bash
+cd text-to-logo-ai
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+# ⚠️ Models and Checkpoints
+
+The trained models and checkpoints are not included directly in the repository because of their large size.
+
+The project requires access to:
+
+```text
+CamemBERT NER model
+CamemBERT Relation Extraction model
+Stable Diffusion v1.5
+LoRA checkpoint
+```
+
+The paths used during development can be configured according to the local or Google Drive environment.
+
+Example:
+
+```python
+MODEL_DIR = "/path/to/model"
+CHECKPOINT_PATH = "/path/to/lora/checkpoint"
+```
+
+---
+
+# 🔐 Security Note
+
+API keys and authentication tokens must **never be committed to GitHub**.
+
+For example, Ngrok authentication tokens should be stored as environment variables or secrets.
+
+```python
+import os
+
+NGROK_TOKEN = os.getenv("NGROK_TOKEN")
+```
+
+Do not place private tokens directly inside source files.
+
+---
+
+# 📊 Model Architecture
+
+## NER Model
+
+```text
+Input Text
+     │
+     ▼
+CamemBERT Tokenizer
+     │
+     ▼
+Fine-Tuned CamemBERT
+     │
+     ▼
+Token Classification
+     │
+     ▼
+Entity Aggregation
+     │
+     ▼
+Structured Entities
+```
+
+---
+
+## Relation Extraction Model
+
+```text
+Description
+     │
+     ▼
+Entity Pair Construction
+     │
+     ▼
+CamemBERT Tokenizer
+     │
+     ▼
+Fine-Tuned CamemBERT
+     │
+     ▼
+Sequence Classification
+     │
+     ▼
+Relation + Confidence
+```
+
+---
+
+## Generative Model
+
+```text
+Generated Prompt
+      │
+      ▼
+Stable Diffusion v1.5
+      │
+      +
+      │
+     LoRA
+      │
+      ▼
+Image Generation
+      │
+      ▼
+4 Logo Variations
+```
+
+---
+
+# 📈 Advantages
+
+The proposed system provides several advantages:
+
+### Structured Understanding
+
+The system does not directly send the raw description to the image generator.
+
+Instead, it first extracts and structures semantic information.
+
+### Semantic Relationships
+
+Relation extraction allows the system to understand relationships between entities.
+
+### Automatic Prompt Engineering
+
+Prompts are automatically generated from the extracted information.
+
+### Multiple Results
+
+Four different seeds provide several visual alternatives.
+
+### Modular Architecture
+
+Each component can be independently improved:
+
+```text
+NER
+ ↓
+Relation Extraction
+ ↓
+Prompt Builder
+ ↓
+Image Generation
+```
+
+---
+
+# 🔬 Future Improvements
+
+Several improvements can be considered for future versions.
+
+## Front-End Interface
+
+Develop a dedicated web interface allowing users to:
+
+- Enter descriptions
+- Preview extracted entities
+- Visualize relations
+- Edit generated prompts
+- Generate logos
+- Download results
+
+---
+
+## Model Improvements
+
+Possible improvements include:
+
+- Better NER training
+- More relation classes
+- Larger logo datasets
+- Improved LoRA fine-tuning
+- More specialized diffusion models
+- Automatic logo quality evaluation
+
+---
+
+## Prompt Validation
+
+The optional Mistral + LoRA module can be integrated as an additional validation layer:
+
+```text
+Generated Prompt
+       │
+       ▼
+Mistral + LoRA
+       │
+       ▼
+Validated Prompt
+       │
+       ▼
+Stable Diffusion
+```
+
+---
+
+## Deployment
+
+The system can later be deployed using:
+
+- Docker
+- Cloud GPU
+- Hugging Face Spaces
+- AWS
+- Azure
+- Google Cloud
+
+---
+
+# 📚 Research Contribution
+
+The project combines several AI techniques into a unified pipeline:
+
+```text
+Natural Language Processing
+          +
+Named Entity Recognition
+          +
+Relation Extraction
+          +
+Prompt Engineering
+          +
+Large Language Models
+          +
+Generative AI
+          +
+Diffusion Models
+          +
+LoRA Fine-Tuning
+```
+
+This combination enables a structured transformation:
+
+```text
+Natural Language
+       ↓
+Semantic Representation
+       ↓
+Structured Prompt
+       ↓
+Generated Visual Concept
+```
+
+---
+
+# 👩‍💻 Author
+
+**Amal Boubakri**
+
+Master's Degree in Data Science
+
+Interests:
+
+- Data Science
+- Artificial Intelligence
+- NLP
+- Generative AI
+- Large Language Models
+- Computer Vision
+- Data Engineering
 
 GitHub:
 
 https://github.com/amal5598
 
-Repository:
+---
 
-https://github.com/amal5598/text-to-logo-ai
+# ⭐ Project
+
+If you find this project interesting, feel free to explore the repository and follow the development of the project.
+
+**Text-to-Logo AI — From Natural Language to Generative Logo Design.**
